@@ -4,12 +4,12 @@
     {
         public Contact()
         {
-            Contacts = [];
+            ContactDetails = [];
         }
         public Guid Id { get; set; }
         public string Name { get; set; } = default!;
         public string Surname { get; set; } = default!;
         public string CompanyName { get; set; } = default!;
-        public virtual ICollection<Contact> Contacts { get; set; }
+        public virtual ICollection<ContactDetail> ContactDetails { get; set; }
     }
 }
