@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\BuildingBlocks\BuildingBlocks.csproj" />
     <ProjectReference Include="..\..\..\EContacts.ServiceDefaults\EContacts.ServiceDefaults.csproj" />
   </ItemGroup>
 
