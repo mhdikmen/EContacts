@@ -13,8 +13,6 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["Services/Contact/Contact.API/Contact.API.csproj", "Services/Contact/Contact.API/"]
-COPY ["BuildingBlocks/BuildingBlocks/BuildingBlocks.csproj", "BuildingBlocks/BuildingBlocks/"]
-COPY ["EContacts.ServiceDefaults/EContacts.ServiceDefaults.csproj", "EContacts.ServiceDefaults/"]
 RUN dotnet restore "./Services/Contact/Contact.API/Contact.API.csproj"
 COPY . .
 WORKDIR "/src/Services/Contact/Contact.API"

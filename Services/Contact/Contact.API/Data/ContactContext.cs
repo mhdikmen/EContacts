@@ -15,11 +15,10 @@ namespace Contact.API.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            if (!Contacts.Any())
-            {
-                InitialDataGenerator initialDataGenerator = new();
-                modelBuilder.Entity<Models.Contact>().HasData(initialDataGenerator.GenerateContacts());
-            }
+
+            InitialDataGenerator generator = new();
+            modelBuilder.Entity<Models.Contact>().HasData(generator.GetContacts());
+            modelBuilder.Entity<Models.ContactDetail>().HasData(generator.GetContactDetails());
         }
     }
 }

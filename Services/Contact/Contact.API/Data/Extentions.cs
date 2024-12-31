@@ -9,6 +9,7 @@ namespace Contact.API.Data
             using var scope = app.ApplicationServices.CreateScope();
             using var dbContext = scope.ServiceProvider.GetRequiredService<ContactContext>();
             dbContext.Database.MigrateAsync();
+            dbContext.Database.EnsureCreated();
             return app;
         }
     }
