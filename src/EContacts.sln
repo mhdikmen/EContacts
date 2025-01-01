@@ -1,10 +1,60 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35527.113 d17.12
+VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildingBlocks", "BuildingBlocks", "{662CFF9B-DE3C-4A16-8329-2419B8CA31E2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{AB9ADE0C-0612-4B17-95AF-455DEC339EC3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Contact", "Contact", "{67D2D265-74DF-4BF7-AACE-16F5967C3D5D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Report", "Report", "{669419B7-CF58-453E-976B-3AC974DEBC58}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contact.API", "Services\Contact\Contact.API\Contact.API.csproj", "{19B8F5AD-30B6-4D8B-A841-00CC7FABCEB2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EContacts.AppHost", "EContacts.AppHost\EContacts.AppHost.csproj", "{2CC5EA24-34EC-4B19-ADFD-3B55C108EAFD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EContacts.ServiceDefaults", "EContacts.ServiceDefaults\EContacts.ServiceDefaults.csproj", "{DF9FA79E-385D-4EED-8446-9DB531975EFD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlocks", "BuildingBlocks\BuildingBlocks\BuildingBlocks.csproj", "{50FA9616-8D44-4D7D-834D-222658D9E6BA}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{8F4E26BC-6CF5-46FC-99C4-BCFFC9453664}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{19B8F5AD-30B6-4D8B-A841-00CC7FABCEB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19B8F5AD-30B6-4D8B-A841-00CC7FABCEB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19B8F5AD-30B6-4D8B-A841-00CC7FABCEB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19B8F5AD-30B6-4D8B-A841-00CC7FABCEB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CC5EA24-34EC-4B19-ADFD-3B55C108EAFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CC5EA24-34EC-4B19-ADFD-3B55C108EAFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CC5EA24-34EC-4B19-ADFD-3B55C108EAFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CC5EA24-34EC-4B19-ADFD-3B55C108EAFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF9FA79E-385D-4EED-8446-9DB531975EFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF9FA79E-385D-4EED-8446-9DB531975EFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF9FA79E-385D-4EED-8446-9DB531975EFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF9FA79E-385D-4EED-8446-9DB531975EFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50FA9616-8D44-4D7D-834D-222658D9E6BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50FA9616-8D44-4D7D-834D-222658D9E6BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50FA9616-8D44-4D7D-834D-222658D9E6BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50FA9616-8D44-4D7D-834D-222658D9E6BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F4E26BC-6CF5-46FC-99C4-BCFFC9453664}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F4E26BC-6CF5-46FC-99C4-BCFFC9453664}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F4E26BC-6CF5-46FC-99C4-BCFFC9453664}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F4E26BC-6CF5-46FC-99C4-BCFFC9453664}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{67D2D265-74DF-4BF7-AACE-16F5967C3D5D} = {AB9ADE0C-0612-4B17-95AF-455DEC339EC3}
+		{669419B7-CF58-453E-976B-3AC974DEBC58} = {AB9ADE0C-0612-4B17-95AF-455DEC339EC3}
+		{19B8F5AD-30B6-4D8B-A841-00CC7FABCEB2} = {67D2D265-74DF-4BF7-AACE-16F5967C3D5D}
+		{50FA9616-8D44-4D7D-834D-222658D9E6BA} = {662CFF9B-DE3C-4A16-8329-2419B8CA31E2}
 	EndGlobalSection
 EndGlobal

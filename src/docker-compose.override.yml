@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  contactdb:
+    container_name: contactdb
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=ContactDb
+    restart: always
+    ports:
+        - "5432:5432"
+    volumes:
+      - postgres_catalog:/var/lib/postgresql/data/ 
+
+  contact.api:
+    container_name: contact.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8081
+      - ConnectionStrings__ContactContext=Server=contactdb;Port=5432;Database=ContactDb;User Id=postgres;Password=postgres;Include Error Detail=true
+    depends_on:
+      - contactdb   
+    ports:
+      - "6000:8080"
+      - "6060:8081"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+
+
+volumes:
+  postgres_catalog: 

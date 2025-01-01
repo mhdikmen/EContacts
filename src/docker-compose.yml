@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+
+  contactdb:
+    image: postgres
+
+
+  contact.api:
+    image: ${DOCKER_REGISTRY-}contactapi
+    build:
+      context: .
+      dockerfile: Services/Contact/Contact.API/Dockerfile
