@@ -1,0 +1,12 @@
+﻿global using Contact.API.Data;
+global using FastEndpoints;
+global using FastEndpoints.Swagger;
+global using Microsoft.EntityFrameworkCore;
+global using Serilog;
+global using FluentValidation;
+global using BuildingBlocks.Behaviors;
+global using BuildingBlocks.Responses;
+global using BuildingBlocks.CQRS;
+global using Contact.API.Middlewares;
+global using System.Reflection;
+global using Mapster;
