@@ -26,7 +26,6 @@ namespace Contact.API.FunctionalTests.ApiEndpoints
             var responseMessage = await response.Content.ReadAsStringAsync();
             var result = JsonConvert.DeserializeObject<CreateContactResponse>(responseMessage);
             response.StatusCode.Should().Be(HttpStatusCode.Created);
-            result?.HttpStatusCode.Should().Be((int)HttpStatusCode.Created);
         }
 
 
@@ -43,7 +42,6 @@ namespace Contact.API.FunctionalTests.ApiEndpoints
             var responseMessage = await response.Content.ReadAsStringAsync();
             var result = JsonConvert.DeserializeObject<CreateContactResponse>(responseMessage);
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
-            result?.HttpStatusCode.Should().Be((int)HttpStatusCode.BadRequest);
         }
     }
 }

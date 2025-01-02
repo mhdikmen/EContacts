@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Contact.API.Contacts.CreateContact
 {
-    public class DeleteContactEndpoint(IMediator _mediator) : Endpoint<DeleteContactRequest, DeleteContactResponse>
+    public class DeleteContactEndpoint(IMediator _mediator) : Endpoint<DeleteContactRequest>
     {
         public override void Configure()
         {
@@ -19,8 +19,10 @@ namespace Contact.API.Contacts.CreateContact
         {
             DeleteContactCommand command = request.Adapt<DeleteContactCommand>();
             var result = await _mediator.Send(command, ct);
-            var response = result.IsSuccess ? new DeleteContactResponse(System.Net.HttpStatusCode.NoContent, Messages.DeletedMessage) : new DeleteContactResponse(System.Net.HttpStatusCode.NotFound, Messages.NotFoundMessage);
-            await SendAsync(response, response.HttpStatusCode, ct);
+            if(result.IsSuccess)
+                await SendNoContentAsync(ct);
+            else
+                await SendNotFoundAsync(ct);
         }
     }
 }

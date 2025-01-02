@@ -24,10 +24,7 @@
             builder.Services.AddEndpointsApiExplorer();
 
             builder.Services.AddFastEndpoints()
-                            .SwaggerDocument(o =>
-                            {
-                                o.ShortSchemaNames = true;
-                            });
+                            .SwaggerDocument();
 
 
             builder.AddServiceDefaults();
@@ -63,7 +60,10 @@
                     return new ValidationErrorResponse(failures.Select(x => x.ErrorMessage).ToList());
                 };
             }).UseSwaggerGen();
+
+
             app.UseMigration();
+
             app.MapDefaultEndpoints();
 
             return app;

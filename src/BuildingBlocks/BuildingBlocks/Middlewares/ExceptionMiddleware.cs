@@ -32,9 +32,9 @@ namespace Contact.API.Middlewares
 
         private static Task HandleExceptionAsync(HttpContext context)
         {
-            BaseResponse response = new(HttpStatusCode.InternalServerError, Messages.InternalServerErrorMessage);
+            ErrorResponse response = new(Messages.InternalServerErrorMessage);
             context.Response.ContentType = "application/json";
-            context.Response.StatusCode = response.HttpStatusCode;
+            context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
             return context.Response.WriteAsync(response.ToString());
         }
     }
