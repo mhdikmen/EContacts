@@ -33,10 +33,4 @@
     <ProjectReference Include="..\..\..\EContacts.ServiceDefaults\EContacts.ServiceDefaults.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Contacts\DeleteContactDetail\" />
-    <Folder Include="Contacts\GetContacts\" />
-    <Folder Include="Contacts\GetContact\" />
-  </ItemGroup>
-
 </Project>

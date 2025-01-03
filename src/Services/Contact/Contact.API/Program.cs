@@ -3,9 +3,9 @@ using Contact.API;
 var builder = WebApplication.CreateBuilder(args);
 builder.AddCommonApiServices();
 
-if(builder.Environment.IsDevelopment())
+if(builder.Environment.IsDevelopment() || builder.Environment.IsProduction())
 {
-    builder.AddDevelopmentApiServices();
+    builder.AddDatabaseApiService();
 }
 
 var app = builder.Build();

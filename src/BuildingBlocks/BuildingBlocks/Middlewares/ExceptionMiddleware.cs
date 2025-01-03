@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System.Net;
 
-namespace Contact.API.Middlewares
+namespace BuildingBlocks.Middlewares
 {
     public class ExceptionMiddleware
     {

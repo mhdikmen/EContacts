@@ -1,4 +1,7 @@
-﻿namespace Contact.API
+﻿using BuildingBlocks.Middlewares;
+using EContacts.ServiceDefaults;
+
+namespace Contact.API
 {
     public static class DependencyInjection
     {
@@ -37,7 +40,7 @@
             return builder;
         }
 
-        public static WebApplicationBuilder AddDevelopmentApiServices(this WebApplicationBuilder builder)
+        public static WebApplicationBuilder AddDatabaseApiService(this WebApplicationBuilder builder)
         {
             string dbConnectionString = builder.Configuration.GetConnectionString(nameof(ContactContext))!;
 
@@ -51,6 +54,7 @@
 
         public static WebApplication UseCommonApiServices(this WebApplication app)
         {
+            app.UseMiddleware<SerilogRequestResponseLoggingMiddleware>();
             app.UseMiddleware<ExceptionMiddleware>();
 
             app.UseFastEndpoints(c =>

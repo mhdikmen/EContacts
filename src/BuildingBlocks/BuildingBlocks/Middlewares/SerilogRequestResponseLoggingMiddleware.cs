@@ -2,7 +2,7 @@
 using Serilog;
 using System.Text;
 
-namespace Contact.API.Middlewares
+namespace BuildingBlocks.Middlewares
 {
     public class SerilogRequestResponseLoggingMiddleware
     {

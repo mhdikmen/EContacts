@@ -1,5 +1,4 @@
-﻿using Clean.Architecture.FunctionalTests;
-using Contact.API.Contacts.CreateContact;
+﻿using Contact.API.Contacts.CreateContact;
 using FluentAssertions;
 using Newtonsoft.Json;
 using System.Net;
@@ -23,8 +22,6 @@ namespace Contact.API.FunctionalTests.ApiEndpoints
             };
             var content = new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json");
             var response = await _client.PostAsync(CreateContactRequest.Route, content);
-            var responseMessage = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<CreateContactResponse>(responseMessage);
             response.StatusCode.Should().Be(HttpStatusCode.Created);
         }
 
@@ -39,8 +36,6 @@ namespace Contact.API.FunctionalTests.ApiEndpoints
             };
             var content = new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json");
             var response = await _client.PostAsync(CreateContactRequest.Route, content);
-            var responseMessage = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<CreateContactResponse>(responseMessage);
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }
     }
