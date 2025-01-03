@@ -9,21 +9,20 @@ namespace Contact.API.Data
         private readonly string _internationalPhoneNumberFormatForFaker = "+## ### #### ###";
         private readonly List<Models.Contact> _contacts;
         private readonly List<Models.ContactDetail> _contactDetails;
-        public InitialDataGenerator()
+        public InitialDataGenerator(int number)
         {
-            _contacts = GenerateContacts();
+            _contacts = GenerateContacts(number);
             _contactDetails = GenerateContactDetails();
         }
-#pragma warning disable S2325 // Methods and properties that don't access instance data should be static
-        private List<Models.Contact> GenerateContacts()
-#pragma warning restore S2325 // Methods and properties that don't access instance data should be static
+        private List<Models.Contact> GenerateContacts(int number)
         {
             var contactFaker = new Faker<Models.Contact>()
                 .RuleFor(u => u.Id, f => f.Random.Guid())
                 .RuleFor(u => u.Name, f => f.Name.FirstName())
                 .RuleFor(u => u.Surname, f => f.Name.LastName())
-                .RuleFor(u => u.CompanyName, f => f.Company.CompanyName());
-            return contactFaker.Generate(1000);
+                .RuleFor(u => u.CompanyName, f => f.Company.CompanyName())
+                .RuleFor(u => u.CreatedDate, f => DateTime.UtcNow);
+            return contactFaker.Generate(number);
         }
 
         private List<ContactDetail> GenerateContactDetails()
@@ -37,7 +36,7 @@ namespace Contact.API.Data
                     var detail = new ContactDetail
                     {
                         Id = Guid.NewGuid(),
-                        ContactId = contact.Id, 
+                        ContactId = contact.Id,
                         Type = type,
                         Content = type switch
                         {
@@ -45,7 +44,8 @@ namespace Contact.API.Data
                             ContactDetailType.EmailAddress => new Faker().Internet.Email(),
                             ContactDetailType.Location => new Faker().Address.Country(),
                             _ => throw new NotSupportedException($"ContactDetailType {type} is not supported.")
-                        }
+                        },
+                        CreatedDate = DateTime.UtcNow
                     };
 
                     contactDetails.Add(detail);
@@ -58,5 +58,21 @@ namespace Contact.API.Data
         public List<Models.Contact> GetContacts() => _contacts;
         public List<Models.ContactDetail> GetContactDetails() => _contactDetails;
 
+        public List<Models.Contact> GetContactWithDetails()
+        {
+            List<Models.Contact> contacts = _contacts.Adapt<List<Models.Contact>>();
+            List<Models.ContactDetail> contactDetails = _contactDetails.Adapt<List<Models.ContactDetail>>();
+
+            contacts.ForEach(contact =>
+            {
+                contact.ContactDetails = contactDetails.Where(detail => detail.ContactId == contact.Id).ToList();
+            });
+
+            return contacts;
+        }
+
+
     }
+
 }
+

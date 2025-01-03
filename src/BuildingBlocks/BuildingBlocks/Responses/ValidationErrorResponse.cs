@@ -1,9 +1,9 @@
 ﻿using BuildingBlocks.Consts;
 namespace BuildingBlocks.Responses
 {
-    public record ValidationErrorResponse : BaseResponse
+    public record ValidationErrorResponse : ErrorResponse
     {
-        public ValidationErrorResponse(List<string> errors) : base(System.Net.HttpStatusCode.BadRequest, Messages.ValidationErrorMessage)
+        public ValidationErrorResponse(List<string> errors) : base(Messages.ValidationErrorMessage)
         {
             Errors = errors;
         }

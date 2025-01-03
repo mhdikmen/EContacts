@@ -1,4 +1,4 @@
-﻿namespace Contact.API.Contacts.CreateContact
+﻿namespace Contact.API.Contacts.DeleteContact
 {
     public class DeleteContactRequestValidator : Validator<DeleteContactRequest>
     {

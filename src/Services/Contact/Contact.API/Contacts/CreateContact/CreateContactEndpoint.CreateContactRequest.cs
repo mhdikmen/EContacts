@@ -1,6 +1,6 @@
 ﻿namespace Contact.API.Contacts.CreateContact
 {
-    public class CreateContactRequest
+    public record CreateContactRequest
     {
         public const string Route = "/contacts";
         public string Name { get; set; } = default!;

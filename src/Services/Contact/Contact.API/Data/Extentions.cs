@@ -6,7 +6,11 @@
         {
             using var scope = app.ApplicationServices.CreateScope();
             using var dbContext = scope.ServiceProvider.GetRequiredService<ContactContext>();
-            dbContext.Database.Migrate();
+
+            if (dbContext.Database.IsRelational())
+                dbContext.Database.Migrate();
+
+            dbContext.Database.EnsureCreated();
             return app;
         }
     }
