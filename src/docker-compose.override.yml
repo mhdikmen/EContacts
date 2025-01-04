@@ -1,6 +1,7 @@
 version: '3.8'
 
 services:
+
   contactdb:
     container_name: contactdb
     environment:
@@ -13,6 +14,86 @@ services:
     volumes:
       - postgres_catalog:/var/lib/postgresql/data/ 
 
+  messagebroker:
+    container_name: messagebroker
+    hostname: econtact-mq
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  messagebrokertest:
+    container_name: messagebrokertest
+    hostname: econtact-mq-test
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    restart: always
+    ports:
+      - "5673:5673"
+      - "15673:15673"
+
+  reportdb:
+    container_name: reportdb
+    image: mongo:6.0 
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_DATABASE=ReportDb
+      - MONGO_INITDB_ROOT_USERNAME=report
+      - MONGO_INITDB_ROOT_PASSWORD=report
+    volumes:
+      - reportdb_data:/data/db 
+
+  reportdbui:
+    container_name: reportdbui
+    image: mongo-express:1.0
+    restart: always
+    ports:
+      - "8081:8081"
+    depends_on:
+      - reportdb 
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=reportdb
+      - ME_CONFIG_BASICAUTH_USERNAME=report
+      - ME_CONFIG_BASICAUTH_PASSWORD=report
+      - ME_CONFIG_MONGODB_PORT=27017
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=report
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=report
+
+  reportdbtest:
+    container_name: reportdbtest
+    image: mongo:6.0 
+    restart: always
+    ports:
+      - "27018:27017"
+    environment:
+      - MONGO_INITDB_DATABASE=ReportDb
+      - MONGO_INITDB_ROOT_USERNAME=report
+      - MONGO_INITDB_ROOT_PASSWORD=report
+    volumes:
+      - reportdbtest_data:/data/db 
+
+  reportdbuitest:
+    container_name: reportdbuitest
+    image: mongo-express:1.0
+    restart: always
+    ports:
+      - "8082:8081"
+    depends_on:
+      - reportdbtest
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=reportdbtest
+      - ME_CONFIG_BASICAUTH_USERNAME=report
+      - ME_CONFIG_BASICAUTH_PASSWORD=report
+      - ME_CONFIG_MONGODB_PORT=27017
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=report
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=report
+      
   contact.api:
     container_name: contact.api
     environment:
@@ -29,6 +110,27 @@ services:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
 
-
+  report.api:
+    container_name: report.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8081
+      - MessageBroker__Host=amqp://ecommerce-mq:5672
+      - MessageBroker__UserName=guest
+      - MessageBroker__Password=guest
+      - ServiceUrls__ContactAPI=https://contact.api:8081 
+    depends_on:
+      - reportdb   
+      - messagebroker   
+    ports:
+      - "6001:8080"
+      - "6061:8081"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
 volumes:
   postgres_catalog: 
+  reportdb_data:
+  reportdbtest_data:
+
