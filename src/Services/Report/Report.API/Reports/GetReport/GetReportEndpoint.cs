@@ -1,4 +1,6 @@
-﻿using MediatR;
+﻿using BuildingBlocks.Enums;
+using MediatR;
+using Report.API.Models;
 
 namespace Report.API.Reports.GetReport
 {
@@ -20,7 +22,7 @@ namespace Report.API.Reports.GetReport
             {
                 s.ExampleRequest = new GetReportRequest { Id = Guid.NewGuid() };
                 s.Summary = "Gets a report.";
-                s.Description = "This endpoint allows you to get a report.";
+                s.Description = string.Concat("This endpoint allows you to get a report.", "Report states are ", string.Join(" , ", Enum.GetValues<ReportState>().Select(e => string.Concat(((int)e).ToString(), " - ", e))));
                 s.Responses[(int)HttpStatusCode.OK] = "The report request was found successfully.";
                 s.Responses[(int)HttpStatusCode.BadRequest] = "Invalid input.";
                 s.Responses[(int)HttpStatusCode.InternalServerError] = "Server Error.";

@@ -1,5 +1,8 @@
 ﻿using BuildingBlocks.Dtos.ContactDtos;
+using BuildingBlocks.Pagination;
+using MassTransit;
 using Report.API.Data;
+using Report.API.Events;
 using Report.API.Services.Contact;
 
 namespace Report.API.Services.Report
@@ -8,15 +11,36 @@ namespace Report.API.Services.Report
     {
         private readonly IContactService _contactService;
         private readonly IReportRepository _reportRepository;
+        private readonly IPublishEndpoint _publishEndpoint;
 
-        public ReportService(IContactService contactService, IReportRepository reportRepository)
+        public ReportService(IContactService contactService, IReportRepository reportRepository, IPublishEndpoint publishEndpoint)
         {
             _contactService = contactService;
             _reportRepository = reportRepository;
+            _publishEndpoint = publishEndpoint;
         }
-        public async Task CreateReportByIdAsync(Guid Id)
+        public async Task<Models.Report?> GetReportByIdAsync(Guid id)
         {
-            Models.Report report = await _reportRepository.GetReportByIdAsync(Id) ?? throw new Exception("Report not found");
+            return await _reportRepository.GetReportByIdAsync(id);
+        }
+
+        public async Task<Models.Report> CreateReportAsync(Guid id)
+        {
+            var report = new Models.Report(id);
+            await _reportRepository.CreateReportAsync(report);
+            await _publishEndpoint.Publish(new ReportCreatedEvent(report.Id));
+            return report;
+        }
+
+        public async Task<PaginatedResult<Models.Report>> GetReportsPaginatedAsync(int pageIndex, int pageSize)
+        {
+            PaginatedResult<Models.Report> paginatedResult = await _reportRepository.GetReportsPaginatedAsync(pageIndex, pageSize);
+            return paginatedResult;
+        }
+
+        public async Task PrepareReportByIdAsync(Guid id)
+        {
+            Models.Report report = await _reportRepository.GetReportByIdAsync(id) ?? throw new InvalidOperationException("Report not found. Cannot prepare report.");
             List<ContactDto> contacts = [.. (await _contactService.GetReportsAsync())];
             List<string> locations = contacts
                 .SelectMany(x => x.ContactDetails)
@@ -36,15 +60,14 @@ namespace Report.API.Services.Report
 
             report.State = BuildingBlocks.Enums.ReportState.Completed;
             report.CompletedDate = DateTime.UtcNow;
-            await _reportRepository.UpdateReportAsync(Id, report);
+            await _reportRepository.UpdateReportAsync(id, report);
         }
 
-
-        public async Task SetReportStateAsFailedByIdAsync(Guid Id)
+        public async Task SetReportStateAsFailedByIdAsync(Guid id)
         {
-            Models.Report report = await _reportRepository.GetReportByIdAsync(Id) ?? throw new Exception("Report not found");
+            Models.Report report = await _reportRepository.GetReportByIdAsync(id) ?? throw new InvalidOperationException("Report not found. Cannot set the state of report.");
             report.State = BuildingBlocks.Enums.ReportState.Failed;
-            await _reportRepository.UpdateReportAsync(Id, report);
+            await _reportRepository.UpdateReportAsync(id, report);
         }
     }
 }

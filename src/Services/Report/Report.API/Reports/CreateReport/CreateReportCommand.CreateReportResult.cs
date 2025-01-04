@@ -1,4 +1,4 @@
 ﻿namespace Report.API.Reports.CreateReport
 {
-    public record CreateReportResult(Guid Id);
+    public record CreateReportResult(bool IsCreated, Guid? Id = null);
 }

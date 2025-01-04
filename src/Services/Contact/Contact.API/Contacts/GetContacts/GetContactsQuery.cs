@@ -1,5 +1,5 @@
 ﻿using BuildingBlocks.Pagination;
 
-namespace Contact.API.Contacts.GetContact;
+namespace Contact.API.Contacts.GetContacts;
 
-public record GetContactsQuery : PaginationRequest, BuildingBlocks.CQRS.IQuery<GetContactsQueryResult>;
+public record GetContactsQuery : PaginationRequest, IQuery<GetContactsQueryResult>;

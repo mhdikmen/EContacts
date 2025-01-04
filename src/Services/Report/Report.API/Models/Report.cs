@@ -4,7 +4,7 @@ using MongoDB.Bson;
 
 namespace Report.API.Models
 {
-    public class Report
+    public class Report 
     {
         public Report()
         {
@@ -21,10 +21,11 @@ namespace Report.API.Models
             State = ReportState.Preparing;
             ReportDetails = [];
         }
+
         [BsonGuidRepresentation(GuidRepresentation.Standard)]
         public Guid Id { get; set; }
         public DateTime RequestedDate { get; set; }
-        public DateTime CompletedDate { get; set; }
+        public DateTime? CompletedDate { get; set; }
         public ReportState State { get; set; }
         public ICollection<ReportDetail> ReportDetails { get; set; }
 
