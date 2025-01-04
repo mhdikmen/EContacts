@@ -1,7 +1,5 @@
 ﻿using Contact.API.Contacts.CreateContact;
-using Contact.API.Contacts.CreateContactDetail;
 using Contact.API.Contacts.DeleteContact;
-using FastEndpoints;
 
 namespace Contact.API.FunctionalTests.ApiEndpoints
 {
@@ -10,17 +8,18 @@ namespace Contact.API.FunctionalTests.ApiEndpoints
     {
         private readonly HttpClient _client = factory.CreateClient();
 
+
+        [Fact]
+        public async Task Should_Return_400()
+        {
+            var deleteContactResponseMessage = await _client.DeleteAsync(DeleteContactRequest.BuildRoute(Guid.Empty));
+            deleteContactResponseMessage.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        }
+
         [Fact]
         public async Task Should_Return_404()
         {
-            var deleteContactRequest = new DeleteContactRequest
-            {
-                Id = Guid.NewGuid()
-            };
-
-            var deleteContactRequestContent = new StringContent(JsonConvert.SerializeObject(deleteContactRequest), Encoding.UTF8, "application/json");
-            var deleteContactResponseMessage = await _client.PostAsync(CreateContactRequest.BuildRoute(), deleteContactRequestContent);
-
+            var deleteContactResponseMessage = await _client.DeleteAsync(DeleteContactRequest.BuildRoute(Guid.NewGuid()));
             deleteContactResponseMessage.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
 
