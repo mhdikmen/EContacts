@@ -5,9 +5,34 @@ services:
   contactdb:
     image: postgres
 
+  messagebroker:
+    image: rabbitmq:management
+
+  messagebrokertest:
+    image: rabbitmq:management
+
+  reportdb:
+    image: mongo:6.0
+
+  reportdbtest:
+    image: mongo:6.0
+
+  reportdbui:
+    image: mongo-express:1.0
+
+  reportdbuitest:
+    image: mongo-express:1.0
 
   contact.api:
     image: ${DOCKER_REGISTRY-}contactapi
     build:
       context: .
       dockerfile: Services/Contact/Contact.API/Dockerfile
+
+
+  report.api:
+    image: ${DOCKER_REGISTRY-}reportapi
+    build:
+      context: .
+      dockerfile: Services/Report/Report.API/Dockerfile
+

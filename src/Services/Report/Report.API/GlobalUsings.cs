@@ -1,0 +1,11 @@
+﻿global using FastEndpoints;
+global using FastEndpoints.Swagger;
+global using Serilog;
+global using FluentValidation;
+global using BuildingBlocks.Behaviors;
+global using BuildingBlocks.Responses;
+global using BuildingBlocks.CQRS;
+global using System.Reflection;
+global using Mapster;
+global using System.Net;
+global using BuildingBlocks.Messaging.MassTransit;
