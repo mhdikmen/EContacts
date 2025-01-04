@@ -1,4 +1,4 @@
-﻿namespace Contact.API.Contacts.GetContact;
+﻿namespace Contact.API.Contacts.GetContacts;
 
 internal class GetContactsQueryHandler(ContactContext _contactContext)
     : IQueryHandler<GetContactsQuery, GetContactsQueryResult>

@@ -1,7 +1,7 @@
-﻿using BuildingBlocks.Dtos.ContactDtos;
-using BuildingBlocks.Pagination;
+﻿using BuildingBlocks.Pagination;
+using Report.API.Dtos.ReportDtos;
 
 namespace Report.API.Reports.GetReports
 {
-    public record GetReportsResponse(PaginatedResult<ContactDto> Contacts);
+    public record GetReportsResponse(PaginatedResult<ReportDto> Reports);
 }

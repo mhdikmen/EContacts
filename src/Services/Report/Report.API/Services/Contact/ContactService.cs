@@ -26,7 +26,7 @@ namespace Report.API.Services.Contact
                 GetReportsDto resp = JsonConvert.DeserializeObject<GetReportsDto>(responseMessage) ?? throw new Exception("Response is null");
                 pageCount = (resp?.Contacts?.PageCount).GetValueOrDefault();
 
-                if (resp?.Contacts.Count != 0)
+                if ((resp?.Contacts?.Data?.Count()).GetValueOrDefault() != 0)
                     contactDtos.AddRange(resp!.Contacts.Data);
 
                 currentPageIndex++;

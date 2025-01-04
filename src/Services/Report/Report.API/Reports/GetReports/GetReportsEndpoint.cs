@@ -1,5 +1,5 @@
-﻿using MediatR;
-using System.Net;
+﻿using BuildingBlocks.Enums;
+using MediatR;
 
 namespace Report.API.Reports.GetReports
 {
@@ -21,9 +21,9 @@ namespace Report.API.Reports.GetReports
             Summary(s =>
             {
                 s.ExampleRequest = new GetReportsRequest { PageIndex = 0, PageSize = 100 };
-                s.Summary = "Gets contacts with the details.";
-                s.Description = "This endpoint allows you to get contacts.";
-                s.Responses[(int)HttpStatusCode.OK] = "Gets the list of contacts.";
+                s.Summary = "Gets reports with the details.";
+                s.Description = string.Concat("This endpoint allows you to get reports.", "Report states are ", string.Join(" , ", Enum.GetValues<ReportState>().Select(e => string.Concat(((int)e).ToString(), " - ", e))));
+                s.Responses[(int)HttpStatusCode.OK] = "Gets the list of reports.";
                 s.Responses[(int)HttpStatusCode.Created] = "Invalid input.";
                 s.Responses[(int)HttpStatusCode.InternalServerError] = "Server Error.";
             });

@@ -10,7 +10,7 @@ namespace Report.API.EventHandlers
         {
             try
             {
-                await _reportService.CreateReportByIdAsync(context.Message.ReportId);
+                await _reportService.PrepareReportByIdAsync(context.Message.ReportId);
             }
             catch (Exception ex)
             {

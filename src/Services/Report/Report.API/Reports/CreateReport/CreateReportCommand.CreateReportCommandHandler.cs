@@ -1,19 +1,18 @@
-﻿using MassTransit;
-using Report.API.Data;
-using Report.API.Events;
+﻿using Report.API.Services.Report;
 
 namespace Report.API.Reports.CreateReport
 {
-    public class CreateReportCommandHandler(IReportRepository _reportRepository, IPublishEndpoint _publishEndpoint)
+    public class CreateReportCommandHandler(IReportService _reportService)
         : BuildingBlocks.CQRS.ICommandHandler<CreateReportCommand, CreateReportResult>
     {
         public async Task<CreateReportResult> Handle(CreateReportCommand request, CancellationToken cancellationToken)
         {
-            var report = new Models.Report(request.Id);
-            await _reportRepository.CreateReportAsync(report);
-            await _publishEndpoint.Publish(new ReportCreatedEvent(report.Id));
-            CreateReportResult result = report.Adapt<CreateReportResult>();
-            return result;
+            Models.Report? result = await _reportService.GetReportByIdAsync(request.Id);
+            if (result is not null)
+                return new CreateReportResult(false);
+
+            Models.Report createdReport = await _reportService.CreateReportAsync(request.Id);
+            return new CreateReportResult(true, createdReport.Id);
         }
     }
 }

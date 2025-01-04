@@ -40,7 +40,7 @@ namespace Report.API.Data
 
             var data = await _reports.Find(_ => true)
                                       .SortBy(report => report.RequestedDate)
-                                      .Skip((pageIndex - 1) * pageSize)
+                                      .Skip(pageIndex * pageSize)
                                       .Limit(pageSize)
                                       .ToListAsync();
 

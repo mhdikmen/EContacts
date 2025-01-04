@@ -24,7 +24,8 @@ namespace Report.API
 
             builder.Services.AddHttpClient("Contact", u => u.BaseAddress = new Uri(builder.Configuration["ServiceUrls:ContactAPI"]!));
             //Async Communication Services
-            builder.Services.AddMessageBroker(builder.Configuration, Assembly.GetExecutingAssembly());
+            builder.Services.AddMessageBroker(builder.Configuration, assembly);
+
             builder.Services.AddMediatR(config =>
             {
                 config.RegisterServicesFromAssembly(assembly);

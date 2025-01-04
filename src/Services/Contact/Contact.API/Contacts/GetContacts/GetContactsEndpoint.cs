@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using System.Net;
 
-namespace Contact.API.Contacts.GetContact
+namespace Contact.API.Contacts.GetContacts
 {
     public class GetContactsEndpoint(IMediator _mediator) : Endpoint<GetContactsRequest, GetContactsResponse>
     {

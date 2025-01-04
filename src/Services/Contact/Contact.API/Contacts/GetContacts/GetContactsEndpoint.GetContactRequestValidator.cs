@@ -1,4 +1,4 @@
-﻿namespace Contact.API.Contacts.GetContact
+﻿namespace Contact.API.Contacts.GetContacts
 {
     public class GetContactsRequestValidator : Validator<GetContactsRequest>
     {
