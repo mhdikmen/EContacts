@@ -13,6 +13,7 @@ namespace Contact.API.Contacts.CreateContactDetail
             AllowAnonymous();
 
             Description(b => b
+                .WithName("CreateContactDetail")
                 .Accepts<CreateContactDetailRequest>("application/json")
                 .Produces<CreateContactDetailResponse>((int)HttpStatusCode.OK, "application/json")
                 .Produces((int)HttpStatusCode.NotFound)

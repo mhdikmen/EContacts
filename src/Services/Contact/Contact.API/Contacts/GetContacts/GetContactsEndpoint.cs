@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using System.Net;
 
 namespace Contact.API.Contacts.GetContacts
 {
@@ -11,6 +10,7 @@ namespace Contact.API.Contacts.GetContacts
             AllowAnonymous();
 
             Description(b => b
+                .WithName("GetContacts")
                 .Accepts<GetContactsRequest>()
                 .Produces<GetContactsResponse>((int)HttpStatusCode.OK, "application/json")
                 .Produces((int)HttpStatusCode.NotFound)

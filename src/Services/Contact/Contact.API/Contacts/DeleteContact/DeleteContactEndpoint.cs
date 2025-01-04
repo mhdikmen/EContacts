@@ -11,6 +11,7 @@ namespace Contact.API.Contacts.DeleteContact
             AllowAnonymous();
 
             Description(b => b
+                .WithName("DeleteContact")
                 .Accepts<DeleteContactRequest>()
                 .Produces((int)HttpStatusCode.NoContent)
                 .Produces((int)HttpStatusCode.NotFound)
