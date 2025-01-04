@@ -6,10 +6,11 @@ namespace Contact.API.Contacts.CreateContact
     {
         public override void Configure()
         {
-            Post(CreateContactRequest.Route);
+            Post("/contacts");
             AllowAnonymous();
 
             Description(b => b
+                .WithName("CreateContact")
                 .Accepts<CreateContactRequest>("application/json")
                 .Produces<CreateContactResponse>((int)HttpStatusCode.Created, "application/json")
                 .ProducesProblemFE<ValidationErrorResponse>((int)HttpStatusCode.BadRequest, "application/json")
@@ -31,9 +32,8 @@ namespace Contact.API.Contacts.CreateContact
         {
             CreateContactCommand command = request.Adapt<CreateContactCommand>();
             var result = await _mediator.Send(command, ct);
-            var contactUrl = $"{CreateContactRequest.Route}/{result.Id}";
             CreateContactResponse response = result.Adapt<CreateContactResponse>();
-            await SendCreatedAtAsync(contactUrl, response.Id, response, true, ct);
+            await SendCreatedAtAsync("GetContact", new { result.Id }, response, false, ct);
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using Contact.API.Contacts.GetContact;
-using MediatR;
+﻿using MediatR;
 
 namespace Contact.API.Contacts.DeleteContactDetail
 {
@@ -11,6 +10,7 @@ namespace Contact.API.Contacts.DeleteContactDetail
             AllowAnonymous();
 
             Description(b => b
+                .WithName("DeleteContactDetail")
                 .Accepts<DeleteContactDetailRequest>()
                 .Produces((int)HttpStatusCode.NoContent)
                 .Produces((int)HttpStatusCode.NotFound)

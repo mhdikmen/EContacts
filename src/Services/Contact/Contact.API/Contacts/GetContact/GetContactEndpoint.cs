@@ -11,6 +11,7 @@ namespace Contact.API.Contacts.GetContact
             AllowAnonymous();
 
             Description(b => b
+                .WithName("GetContact")
                 .Accepts<GetContactRequest>()
                 .Produces<GetContactResponse>((int)HttpStatusCode.OK, "application/json")
                 .Produces((int)HttpStatusCode.NotFound)
