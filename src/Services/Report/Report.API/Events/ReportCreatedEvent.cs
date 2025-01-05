@@ -1,5 +1,9 @@
 ﻿namespace Report.API.Events;
-public record ReportCreatedEvent(Guid id)
+public record ReportCreatedEvent
 {
-    public Guid ReportId { get; set; } = id;
+    public ReportCreatedEvent(Guid reportId)
+    {
+        ReportId = reportId;
+    }
+    public Guid ReportId { get; set; }
 }

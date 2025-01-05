@@ -1,11 +1,12 @@
 ﻿using Contact.API.Contacts.CreateContact;
 using Contact.API.Contacts.DeleteContact;
 using Contact.API.Contacts.GetContact;
+using Contact.API.Tests;
 
-namespace Contact.API.FunctionalTests.ApiEndpoints
+namespace Contact.API.Tests.FunctionalTests
 {
     [Collection("Sequential")]
-    public class GetContactEndpointTests(CustomWebApplicationFactory<Contact.API.Program> factory) : IClassFixture<CustomWebApplicationFactory<Contact.API.Program>>
+    public class GetContactEndpointTests(CustomWebApplicationFactory<Program> factory) : IClassFixture<CustomWebApplicationFactory<Program>>
     {
         private readonly HttpClient _client = factory.CreateClient();
 

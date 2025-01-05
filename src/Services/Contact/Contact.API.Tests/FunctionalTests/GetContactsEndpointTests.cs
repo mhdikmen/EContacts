@@ -2,11 +2,12 @@
 using Contact.API.Contacts.DeleteContact;
 using Contact.API.Contacts.GetContact;
 using Contact.API.Contacts.GetContacts;
+using Contact.API.Tests;
 
-namespace Contact.API.FunctionalTests.ApiEndpoints
+namespace Contact.API.Tests.FunctionalTests
 {
     [Collection("Sequential")]
-    public class GetContactsEndpointTests(CustomWebApplicationFactory<Contact.API.Program> factory) : IClassFixture<CustomWebApplicationFactory<Contact.API.Program>>
+    public class GetContactsEndpointTests(CustomWebApplicationFactory<Program> factory) : IClassFixture<CustomWebApplicationFactory<Program>>
     {
         private readonly HttpClient _client = factory.CreateClient();
 
@@ -33,7 +34,7 @@ namespace Contact.API.FunctionalTests.ApiEndpoints
 
             location.Should().NotBeNull();
 
-            var getContactsResponseMessage = await _client.GetAsync(GetContactsRequest.BuidRoute(0,1));
+            var getContactsResponseMessage = await _client.GetAsync(GetContactsRequest.BuidRoute(0, 1));
             getContactsResponseMessage.StatusCode.Should().Be(HttpStatusCode.OK);
 
             var getContactsResponseContent = await getContactsResponseMessage.Content.ReadAsStringAsync();

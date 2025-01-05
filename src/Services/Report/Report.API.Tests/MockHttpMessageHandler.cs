@@ -1,4 +1,4 @@
-﻿namespace Report.API.FunctionalTests
+﻿namespace Report.API.Tests
 {
     public class MockHttpMessageHandler : HttpMessageHandler
     {

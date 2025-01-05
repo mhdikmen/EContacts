@@ -1,13 +1,13 @@
-﻿using Newtonsoft.Json;
-using Report.API.Dtos.ReportDtos;
+﻿using Mongo2Go;
+using MongoDB.Driver;
 using Report.API.Reports.CreateReport;
 using Report.API.Reports.GetReport;
-using System.Text;
+using Report.API.Tests;
 
-namespace Report.API.FunctionalTests.ApiEndpointTests
+namespace Report.API.Tests.FunctionalTests
 {
     [Collection("Sequential")]
-    public class GetReportEndpointEndpointTests(CustomWebApplicationFactory<Report.API.Program> factory) : IClassFixture<CustomWebApplicationFactory<Report.API.Program>>
+    public class GetReportEndpointEndpointTests(CustomWebApplicationFactory<Program> factory) : IClassFixture<CustomWebApplicationFactory<Program>>
     {
         private readonly HttpClient _client = factory.CreateClient();
 

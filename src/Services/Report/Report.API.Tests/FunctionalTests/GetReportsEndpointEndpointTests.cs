@@ -1,10 +1,11 @@
-﻿using Report.API.Reports.CreateReport;
+﻿using MongoDB.Driver;
+using Report.API.Reports.CreateReport;
 using Report.API.Reports.GetReports;
 
-namespace Report.API.FunctionalTests.ApiEndpointTests
+namespace Report.API.Tests.FunctionalTests
 {
     [Collection("Sequential")]
-    public class GetReportsEndpointEndpointTests(CustomWebApplicationFactory<Report.API.Program> factory) : IClassFixture<CustomWebApplicationFactory<Report.API.Program>>
+    public class GetReportsEndpointEndpointTests(CustomWebApplicationFactory<Program> factory) : IClassFixture<CustomWebApplicationFactory<Program>>
     {
         private readonly HttpClient _client = factory.CreateClient();
 
