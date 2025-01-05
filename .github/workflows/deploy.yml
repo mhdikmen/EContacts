@@ -1,0 +1,48 @@
+name: Build, Push, and Deploy Docker Compose
+
+on:
+  push:
+    branches:
+      - master  # Trigger on pushes to the master branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # GitHub-hosted runner
+
+    steps:
+      # Checkout the repository
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      # Set up Docker
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v2
+
+      # Install Docker Compose
+      - name: Install Docker Compose
+        run: |
+          curl -L https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose
+          docker-compose --version
+
+      # Modify docker-compose.yml for Docker Hub image tagging
+      - name: Update Docker Compose Image Tags
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        run: |
+          sed -i "s|image: \([^:]*\)|image: ${DOCKER_USERNAME}/\1|" src/docker-compose.yml
+          echo "Updated docker-compose.yml:"
+          cat src/docker-compose.yml
+
+      # Log in to Docker Hub
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # Build and Push Docker Images
+      - name: Build and Push Docker Images
+        run: |
+          docker-compose -f src/docker-compose.yml build
+          docker-compose -f src/docker-compose.yml push
