@@ -39,7 +39,7 @@ Projenin test senaryoları da kodlanmıştır. Aşağıda ilgili test raporları
 ![Rapor Test Raporu](https://github.com/mhdikmen/EContacts/blob/master/src/Services/Report/Report.API.Tests/TestResults.png)
 
 ## Projenin Çalıştırılması
-Projeyi çalıştırmak için **Docker** kurulu olmalıdır. Sırasıyla aşağıdaki komutlar çalıştırılmalıdır:
+Projeyi çalıştırmak için **Docker**  ve **.NET 8.0** kurulu olmalıdır. Sırasıyla aşağıdaki komutlar çalıştırılmalıdır:
 
 ```bash
 # 1. Projeyi klonlayın
@@ -49,7 +49,7 @@ git clone https://github.com/mhdikmen/EContacts.git
 cd EContacts/src
 
 # 3. Docker Compose ile servisi başlatın
-docker-compose up
+docker-compose up --build
 ```
 
 Proje başarıyla başlatıldıktan sonra, yukarıdaki API endpointleri üzerinden işlemleri gerçekleştirebilirsiniz.
