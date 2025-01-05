@@ -7,20 +7,12 @@ namespace Report.API.Reports.CreateReport
     {
         public async Task<CreateReportResult> Handle(CreateReportCommand request, CancellationToken cancellationToken)
         {
-            try
-            {
-                Models.Report? result = await _reportService.GetReportByIdAsync(request.Id);
-                if (result is not null)
-                    return new CreateReportResult(false);
+            Models.Report? result = await _reportService.GetReportByIdAsync(request.Id);
+            if (result is not null)
+                return new CreateReportResult(false);
 
-                Models.Report createdReport = await _reportService.CreateReportAsync(request.Id);
-                return new CreateReportResult(true, createdReport.Id);
-            }
-            catch (Exception ex)
-            {
-
-                throw;
-            }
+            Models.Report createdReport = await _reportService.CreateReportAsync(request.Id);
+            return new CreateReportResult(true, createdReport.Id);
         }
     }
 }

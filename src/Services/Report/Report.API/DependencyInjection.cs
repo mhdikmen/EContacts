@@ -23,7 +23,15 @@ namespace Report.API
 
             builder.Host.UseSerilog((_, config) => config.ReadFrom.Configuration(builder.Configuration));
 
-            builder.Services.AddHttpClient("Contact", u => u.BaseAddress = new Uri(builder.Configuration["ServiceUrls:ContactAPI"]!));
+            builder.Services.AddHttpClient("Contact", u => u.BaseAddress = new Uri(builder.Configuration["ServiceUrls:ContactAPI"]!))
+                    .ConfigurePrimaryHttpMessageHandler(() =>
+                    {
+                        return new HttpClientHandler()
+                        {
+                            // Disable SSL certificate validation
+                            ServerCertificateCustomValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true
+                        };
+                    });
 
             builder.Services.AddEndpointsApiExplorer();
 
@@ -41,6 +49,14 @@ namespace Report.API
 
             if (!builder.Environment.EnvironmentName.Equals("Test"))
             {
+                builder.Services.AddSingleton<IMongoClient>(sp =>
+                {
+                    var configuration = sp.GetRequiredService<IConfiguration>();
+                    var connectionString = configuration.GetValue<string>("MongoDbSettings:ConnectionString");
+                    return new MongoClient(connectionString);
+                });
+
+
                 //Async Communication Services
                 builder.Services.AddMassTransit(config =>
                 {
@@ -60,12 +76,6 @@ namespace Report.API
                     });
                 });
 
-                builder.Services.AddSingleton<IMongoClient>(sp =>
-                {
-                    var configuration = sp.GetRequiredService<IConfiguration>();
-                    var connectionString = configuration.GetValue<string>("MongoDbSettings:ConnectionString");
-                    return new MongoClient(connectionString);
-                });
             }
 
             builder.Services.AddMediatR(config =>
