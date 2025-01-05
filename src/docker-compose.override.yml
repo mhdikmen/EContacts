@@ -25,17 +25,6 @@ services:
       - "5672:5672"
       - "15672:15672"
 
-  messagebrokertest:
-    container_name: messagebrokertest
-    hostname: econtact-mq-test
-    environment:
-      - RABBITMQ_DEFAULT_USER=guest
-      - RABBITMQ_DEFAULT_PASS=guest
-    restart: always
-    ports:
-      - "5673:5672"
-      - "15673:15672"
-
   reportdb:
     container_name: reportdb
     image: mongo:6.0 
@@ -65,34 +54,6 @@ services:
       - ME_CONFIG_MONGODB_ADMINUSERNAME=report
       - ME_CONFIG_MONGODB_ADMINPASSWORD=report
 
-  reportdbtest:
-    container_name: reportdbtest
-    image: mongo:6.0 
-    restart: always
-    ports:
-      - "27018:27017"
-    environment:
-      - MONGO_INITDB_DATABASE=ReportDb
-      - MONGO_INITDB_ROOT_USERNAME=report
-      - MONGO_INITDB_ROOT_PASSWORD=report
-    volumes:
-      - reportdbtest_data:/data/db 
-
-  reportdbuitest:
-    container_name: reportdbuitest
-    image: mongo-express:1.0
-    restart: always
-    ports:
-      - "8082:8081"
-    depends_on:
-      - reportdbtest
-    environment:
-      - ME_CONFIG_MONGODB_SERVER=reportdbtest
-      - ME_CONFIG_BASICAUTH_USERNAME=report
-      - ME_CONFIG_BASICAUTH_PASSWORD=report
-      - ME_CONFIG_MONGODB_PORT=27017
-      - ME_CONFIG_MONGODB_ADMINUSERNAME=report
-      - ME_CONFIG_MONGODB_ADMINPASSWORD=report
       
   contact.api:
     container_name: contact.api
