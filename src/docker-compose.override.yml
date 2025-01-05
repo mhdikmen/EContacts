@@ -80,11 +80,12 @@ services:
       - MessageBroker__Host=amqp://econtact-mq:5672
       - MessageBroker__UserName=guest
       - MessageBroker__Password=guest
-      - ServiceUrls__ContactAPI=https://contact.api:8081 
+      - ServiceUrls__ContactAPI=http://contact.api:8080 
       - MongoDbSettings__ConnectionString=mongodb://report:report@reportdb:27017
     depends_on:
       - reportdb   
       - messagebroker   
+      - contact.api   
     ports:
       - "6001:8080"
       - "6061:8081"

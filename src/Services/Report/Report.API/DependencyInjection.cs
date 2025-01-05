@@ -23,15 +23,7 @@ namespace Report.API
 
             builder.Host.UseSerilog((_, config) => config.ReadFrom.Configuration(builder.Configuration));
 
-            builder.Services.AddHttpClient("Contact", u => u.BaseAddress = new Uri(builder.Configuration["ServiceUrls:ContactAPI"]!))
-                    .ConfigurePrimaryHttpMessageHandler(() =>
-                    {
-                        return new HttpClientHandler()
-                        {
-                            // Disable SSL certificate validation
-                            ServerCertificateCustomValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true
-                        };
-                    });
+            builder.Services.AddHttpClient("Contact", u => u.BaseAddress = new Uri(builder.Configuration["ServiceUrls:ContactAPI"]!));
 
             builder.Services.AddEndpointsApiExplorer();
 
