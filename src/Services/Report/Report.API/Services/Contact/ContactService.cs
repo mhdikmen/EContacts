@@ -14,7 +14,7 @@ namespace Report.API.Services.Contact
         public async Task<IList<ContactDto>> GetReportsAsync()
         {
             List<ContactDto> contactDtos = [];
-            int pageSize = 1000;
+            int pageSize = 2;
             long pageCount = 0;
             long currentPageIndex = 0;
             do
@@ -30,7 +30,7 @@ namespace Report.API.Services.Contact
                     contactDtos.AddRange(resp!.Contacts.Data);
 
                 currentPageIndex++;
-            } while (currentPageIndex <= pageCount);
+            } while (currentPageIndex < pageCount);
 
             return contactDtos;
         }

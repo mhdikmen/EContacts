@@ -11,7 +11,7 @@ internal class GetContactsQueryHandler(ContactContext _contactContext)
             .OrderBy(x => x.CreatedDate);
 
         long totalCount = await contactsQ.LongCountAsync(cancellationToken);
-        long pageCount = (long)Math.Floor((double)totalCount / request.PageSize);
+        long pageCount = (long)Math.Ceiling((double)totalCount / request.PageSize);
 
         List<Models.Contact> contacts = await contactsQ
             .Skip(request.PageIndex * request.PageSize)

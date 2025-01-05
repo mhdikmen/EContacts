@@ -8,4 +8,3 @@ global using BuildingBlocks.CQRS;
 global using System.Reflection;
 global using Mapster;
 global using System.Net;
-global using BuildingBlocks.Messaging.MassTransit;

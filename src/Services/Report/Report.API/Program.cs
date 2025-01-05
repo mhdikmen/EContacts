@@ -3,6 +3,7 @@ using Report.API;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddCommonApiServices();
+
 var app = builder.Build();
 
 app.UseCommonApiServices();

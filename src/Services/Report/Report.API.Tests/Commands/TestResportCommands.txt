@@ -1,0 +1,5 @@
+﻿dotnet add package coverlet.msbuild
+dotnet tool install --global coverlet.console
+dotnet tool install --global dotnet-reportgenerator-globaltool
+dotnet test /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=cobertura
+reportgenerator "-reports:TestResults/coverage.cobertura.xml" "-targetdir:TestReport" -reporttypes:Html
