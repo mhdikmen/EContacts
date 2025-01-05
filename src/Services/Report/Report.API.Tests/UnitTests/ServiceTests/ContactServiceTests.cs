@@ -1,6 +1,8 @@
 ﻿using BuildingBlocks.Dtos.ContactDtos;
 using BuildingBlocks.Enums;
 using BuildingBlocks.Pagination;
+using Castle.Core.Logging;
+using Microsoft.Extensions.Logging;
 using Moq;
 using Report.API.Dtos.ContactDtos;
 using Report.API.Services.Contact;
@@ -59,9 +61,10 @@ namespace Report.API.Tests.UnitTests.ServiceTests
             };
 
             var mockFactory = new Mock<IHttpClientFactory>();
+            var mockLogger = new Mock<ILogger<ContactService>>();
             mockFactory.Setup(f => f.CreateClient("Contact")).Returns(httpClient);
 
-            var service = new ContactService(mockFactory.Object);
+            var service = new ContactService(mockLogger.Object, mockFactory.Object);
 
             var result = await service.GetReportsAsync();
 
