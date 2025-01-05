@@ -65,8 +65,8 @@ services:
     depends_on:
       - contactdb   
     ports:
-      - "6000:8080"
-      - "6060:8081"
+      - "5000:8080"
+      - "5010:8081"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
@@ -86,8 +86,8 @@ services:
       - reportdb   
       - messagebroker   
     ports:
-      - "6001:8080"
-      - "6061:8081"
+      - "5001:8080"
+      - "5011:8081"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
