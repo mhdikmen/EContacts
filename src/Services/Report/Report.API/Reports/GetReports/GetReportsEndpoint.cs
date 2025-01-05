@@ -11,6 +11,7 @@ namespace Report.API.Reports.GetReports
             AllowAnonymous();
 
             Description(b => b
+                .WithName("GetReports")
                 .Accepts<GetReportsRequest>()
                 .Produces<GetReportsResponse>((int)HttpStatusCode.OK, "application/json")
                 .Produces((int)HttpStatusCode.NotFound)

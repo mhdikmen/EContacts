@@ -21,9 +21,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlocks", "BuildingB
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{8F4E26BC-6CF5-46FC-99C4-BCFFC9453664}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contact.API.FunctionalTests", "Services\Contact\Contact.API.FunctionalTests\Contact.API.FunctionalTests.csproj", "{6E0C082A-65B8-4664-8133-41BFD00CE93D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contact.API.Tests", "Services\Contact\Contact.API.Tests\Contact.API.Tests.csproj", "{6E0C082A-65B8-4664-8133-41BFD00CE93D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Report.API.FunctionalTests", "Services\Report\Report.API.FunctionalTests\Report.API.FunctionalTests.csproj", "{63160729-DAFF-437E-8898-2B3553CE1CDD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Report.API.Tests", "Services\Report\Report.API.Tests\Report.API.Tests.csproj", "{63160729-DAFF-437E-8898-2B3553CE1CDD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlocks.Messaging", "BuildingBlocks\BuildingBlocks.Messaging\BuildingBlocks.Messaging.csproj", "{287CF434-7699-4C0C-96C2-66EA05455D58}"
 EndProject

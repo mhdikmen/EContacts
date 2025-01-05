@@ -12,8 +12,10 @@ namespace Report.API.Reports.GetReport
             AllowAnonymous();
 
             Description(b => b
+                .WithName("GetReport")
                 .Accepts<GetReportRequest>()
                 .Produces<GetReportResponse>((int)HttpStatusCode.OK, "application/json")
+                .Produces<GetReportResponse>((int)HttpStatusCode.NotFound, "application/json")
                 .ProducesProblemFE<ValidationErrorResponse>((int)HttpStatusCode.BadRequest, "application/json")
                 .ProducesProblemFE<BuildingBlocks.Responses.ErrorResponse>((int)HttpStatusCode.InternalServerError, "application/json"),
                  clearDefaults: true);
@@ -35,8 +37,11 @@ namespace Report.API.Reports.GetReport
             var result = await _mediator.Send(command, ct);
             if (!result.IsExists)
                 await SendNotFoundAsync(ct);
-            GetReportResponse response = result.Adapt<GetReportResponse>();
-            await SendOkAsync(response, ct);
+            else
+            {
+                GetReportResponse response = result.Adapt<GetReportResponse>();
+                await SendOkAsync(response, ct);
+            }
         }
     }
 }

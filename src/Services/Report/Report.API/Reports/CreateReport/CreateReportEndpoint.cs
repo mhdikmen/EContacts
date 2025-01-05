@@ -11,6 +11,7 @@ namespace Report.API.Reports.CreateReport
             AllowAnonymous();
 
             Description(b => b
+                .WithName("CreateReport")
                 .Accepts<CreateReportRequest>("application/json")
                 .Produces<CreateReportResponse>((int)HttpStatusCode.Created, "application/json")
                 .Produces<CreateReportResponse>((int)HttpStatusCode.BadRequest, "application/json")
@@ -37,9 +38,8 @@ namespace Report.API.Reports.CreateReport
                 await SendAsync(new CreateReportResponse(null, $"The report with the id : '{request.Id}' already requested"), (int)HttpStatusCode.BadRequest, ct);
             else
             {
-                var contactUrl = $"{CreateReportRequest.Route}/{result.Id}";
                 CreateReportResponse response = result.Adapt<CreateReportResponse>();
-                await SendCreatedAtAsync(contactUrl, response.Id, response, true, ct);
+                await SendCreatedAtAsync("GetReport", new { result.Id }, response, true, ct);
             }
         }
     }
