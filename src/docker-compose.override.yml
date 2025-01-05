@@ -77,10 +77,11 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
       - ASPNETCORE_HTTPS_PORTS=8081
-      - MessageBroker__Host=amqp://ecommerce-mq:5672
+      - MessageBroker__Host=amqp://econtact-mq:5672
       - MessageBroker__UserName=guest
       - MessageBroker__Password=guest
       - ServiceUrls__ContactAPI=https://contact.api:8081 
+      - MongoDbSettings__ConnectionString=mongodb://report:report@reportdb:27017
     depends_on:
       - reportdb   
       - messagebroker   
@@ -93,5 +94,4 @@ services:
 volumes:
   postgres_catalog: 
   reportdb_data:
-  reportdbtest_data:
 

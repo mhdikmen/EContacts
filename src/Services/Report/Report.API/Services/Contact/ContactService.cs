@@ -14,13 +14,13 @@ namespace Report.API.Services.Contact
         public async Task<IList<ContactDto>> GetReportsAsync()
         {
             List<ContactDto> contactDtos = [];
-            int pageSize = 2;
+            int pageSize = 1000;
             long pageCount = 0;
             long currentPageIndex = 0;
             do
             {
                 HttpClient client = _httpClientFactory.CreateClient("Contact");
-                HttpResponseMessage response = await client.GetAsync($"/contacts?pageIndex={currentPageIndex}&pageSize={pageSize}");
+                HttpResponseMessage response = await client.GetAsync($"contacts?pageIndex={currentPageIndex}&pageSize={pageSize}");
                 response.EnsureSuccessStatusCode();
                 string responseMessage = await response.Content.ReadAsStringAsync();
                 GetReportsDto resp = JsonConvert.DeserializeObject<GetReportsDto>(responseMessage) ?? throw new Exception("Response is null");
